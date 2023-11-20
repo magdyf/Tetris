@@ -160,7 +160,6 @@ public class Main extends Application {
         return rect;
     }
     private Form calculateGhostPosition(Form currentBlock) {
-        // Create a deep copy of the current block to be used as the ghost block
         Form ghostBlock = new Form(
                 new Rectangle(currentBlock.a.getX(), currentBlock.a.getY(), currentBlock.a.getWidth(), currentBlock.a.getHeight()),
                 new Rectangle(currentBlock.b.getX(), currentBlock.b.getY(), currentBlock.b.getWidth(), currentBlock.b.getHeight()),
@@ -170,7 +169,6 @@ public class Main extends Application {
                 currentBlock.getName()
         );
 
-        // Move the ghost block down until it would collide
         while (canMoveDown(ghostBlock)) {
             ghostBlock.a.setY(ghostBlock.a.getY() + SIZE);
             ghostBlock.b.setY(ghostBlock.b.getY() + SIZE);
@@ -184,8 +182,7 @@ public class Main extends Application {
     private void displayGhostBlock(Form currentBlock) {
         Form ghostBlock = calculateGhostPosition(currentBlock);
 
-        // Set ghost block color to a faded version of the current block's color
-        Color ghostColor = currentBlock.getColor().deriveColor(0, 1.0, 1.0, 0.25); // 50% opacity
+        Color ghostColor = currentBlock.getColor().deriveColor(0, 1.0, 1.0, 0.10);
         ghostBlock.a.setFill(ghostColor);
         ghostBlock.b.setFill(ghostColor);
         ghostBlock.c.setFill(ghostColor);
@@ -194,7 +191,6 @@ public class Main extends Application {
 
         ghostBlockRectangles.addAll(Arrays.asList(ghostBlock.a, ghostBlock.b, ghostBlock.c, ghostBlock.d, ghostBlock.e));
 
-        // Add the ghost block to the group for rendering
         group.getChildren().addAll(ghostBlock.a, ghostBlock.b, ghostBlock.c, ghostBlock.d, ghostBlock.e);
     }
     private void removeGhostBlock() {
